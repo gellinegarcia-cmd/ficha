@@ -1,10 +1,10 @@
-// Service worker de Guardias UPA (app instalable en GitHub Pages).
+// Service worker de Fichá (app instalable en GitHub Pages).
 // 1) Guarda la "cáscara" de la app (HTML, íconos) para que abra rápido; nunca guarda datos.
 // 2) Muestra los avisos push con sus botones. Un botón con "firma" ([La hice], [Sí], [No]) se
 //    confirma acá mismo, sin abrir la app; los demás abren la pantalla indicada.
 // __SERVIDOR__ y __VERSION__ los completa tools/web/construir.js.
 const SERVIDOR = "https://script.google.com/macros/s/AKfycbz7o_6xHt-R5AtmpyQqwwa8rpPt6Ra7hLf6owNOt-jf-jNOuLDMMVgP7r4jcOh0w1dq/exec";
-const CACHE = "guardias-upa-202611222008";
+const CACHE = "ficha-202611241355";
 const ICONO = 'icon-192.png';
 
 self.addEventListener('install', () => self.skipWaiting());
@@ -31,7 +31,7 @@ function leerAviso(event) {
   const d = j.data || j; // Firebase manda { data: {...} }
   let acciones = [];
   try { acciones = JSON.parse(d.acciones || '[]'); } catch (e) { acciones = []; }
-  return { titulo: d.titulo || 'Guardias UPA', cuerpo: d.cuerpo || '', url: d.url || './', etiqueta: d.etiqueta || '', acciones: acciones };
+  return { titulo: d.titulo || 'Fichá', cuerpo: d.cuerpo || '', url: d.url || './', etiqueta: d.etiqueta || '', acciones: acciones };
 }
 
 self.addEventListener('push', (event) => {
@@ -60,7 +60,7 @@ self.addEventListener('notificationclick', (event) => {
     event.waitUntil(fetch(SERVIDOR, { method: 'POST', body: JSON.stringify({ f: 'accionAviso', args: [accion.firma] }) })
       .then((r) => r.json())
       .then((j) => {
-        if (j.r && j.r.ok) return self.registration.showNotification('Guardias UPA', { body: j.r.texto, icon: ICONO, tag: 'resultado' });
+        if (j.r && j.r.ok) return self.registration.showNotification('Fichá', { body: j.r.texto, icon: ICONO, tag: 'resultado' });
         return abrir(datos.url || './');
       })
       .catch(() => abrir(datos.url || './')));

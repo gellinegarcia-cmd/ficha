@@ -24,7 +24,7 @@
       if (!('Notification' in window)) throw new Error('Este navegador no permite avisos. En iPhone, abrí la app desde el ícono de la pantalla de inicio.');
       const permiso = await Notification.requestPermission();
       if (permiso !== 'granted') {
-        throw new Error('No se dio permiso para las notificaciones. Para activarlas: Ajustes del celular → Notificaciones → Guardias UPA → Permitir. Después tocá de nuevo "Activar avisos".');
+        throw new Error('No se dio permiso para las notificaciones. Para activarlas: Ajustes del celular → Notificaciones → Fichá → Permitir. Después tocá de nuevo "Activar avisos".');
       }
       const registro = await navigator.serviceWorker.ready;
       if (!window.firebase) {
