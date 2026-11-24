@@ -4,8 +4,9 @@
 //    confirma acá mismo, sin abrir la app; los demás abren la pantalla indicada.
 // __SERVIDOR__ y __VERSION__ los completa tools/web/construir.js.
 const SERVIDOR = "https://script.google.com/macros/s/AKfycbz7o_6xHt-R5AtmpyQqwwa8rpPt6Ra7hLf6owNOt-jf-jNOuLDMMVgP7r4jcOh0w1dq/exec";
-const CACHE = "ficha-202611242233";
-const ICONO = 'icon-192.png';
+const CACHE = "ficha-202611242319";
+const ICONO = 'icon-192.png'; // ícono grande del aviso: el 24 amarillo a color
+const BADGE = 'badge-96.png'; // ícono chico de Android: monocromo, blanco sobre transparente
 
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', (event) => {
@@ -38,7 +39,7 @@ function leerAviso(event) {
 self.addEventListener('push', (event) => {
   const a = leerAviso(event);
   event.waitUntil(self.registration.showNotification(a.titulo, {
-    body: a.cuerpo, icon: ICONO, badge: ICONO, tag: a.etiqueta || undefined,
+    body: a.cuerpo, icon: ICONO, badge: BADGE, tag: a.etiqueta || undefined,
     data: { url: a.url, acciones: a.acciones },
     actions: a.acciones.map((x) => ({ action: x.accion, title: x.titulo }))
   }));
@@ -61,7 +62,7 @@ self.addEventListener('notificationclick', (event) => {
     event.waitUntil(fetch(SERVIDOR, { method: 'POST', body: JSON.stringify({ f: 'accionAviso', args: [accion.firma] }) })
       .then((r) => r.json())
       .then((j) => {
-        if (j.r && j.r.ok) return self.registration.showNotification('Fichá', { body: j.r.texto, icon: ICONO, tag: 'resultado' });
+        if (j.r && j.r.ok) return self.registration.showNotification('Fichá', { body: j.r.texto, icon: ICONO, badge: BADGE, tag: 'resultado' });
         return abrir(datos.url || './');
       })
       .catch(() => abrir(datos.url || './')));
