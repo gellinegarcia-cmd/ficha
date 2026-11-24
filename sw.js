@@ -4,7 +4,7 @@
 //    confirma acá mismo, sin abrir la app; los demás abren la pantalla indicada.
 // __SERVIDOR__ y __VERSION__ los completa tools/web/construir.js.
 const SERVIDOR = "https://script.google.com/macros/s/AKfycbz7o_6xHt-R5AtmpyQqwwa8rpPt6Ra7hLf6owNOt-jf-jNOuLDMMVgP7r4jcOh0w1dq/exec";
-const CACHE = "ficha-202611241530";
+const CACHE = "ficha-202611242210";
 const ICONO = 'icon-192.png';
 
 self.addEventListener('install', () => self.skipWaiting());
