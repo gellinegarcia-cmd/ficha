@@ -4,7 +4,7 @@
 //    confirma acá mismo, sin abrir la app; los demás abren la pantalla indicada.
 // __SERVIDOR__ y __VERSION__ los completa tools/web/construir.js.
 const SERVIDOR = "https://script.google.com/macros/s/AKfycbz7o_6xHt-R5AtmpyQqwwa8rpPt6Ra7hLf6owNOt-jf-jNOuLDMMVgP7r4jcOh0w1dq/exec";
-const CACHE = "ficha-202611242210";
+const CACHE = "ficha-202611242224";
 const ICONO = 'icon-192.png';
 
 self.addEventListener('install', () => self.skipWaiting());
@@ -14,11 +14,12 @@ self.addEventListener('activate', (event) => {
     .then(() => self.clients.claim()));
 });
 
-// Red primero; si no hay señal, la última versión guardada. Solo lo del propio sitio y solo GET.
+// Red primero, salteando la caché del navegador (GitHub Pages la deja 10 minutos); si no hay señal,
+// la última versión guardada. Solo lo del propio sitio y solo GET.
 self.addEventListener('fetch', (event) => {
   const r = event.request;
   if (r.method !== 'GET' || new URL(r.url).origin !== self.location.origin) return;
-  event.respondWith(fetch(r).then((resp) => {
+  event.respondWith(fetch(r, { cache: 'no-store' }).then((resp) => {
     const copia = resp.clone();
     caches.open(CACHE).then((c) => c.put(r, copia));
     return resp;
