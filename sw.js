@@ -4,7 +4,7 @@
 //    confirma acá mismo, sin abrir la app; los demás abren la pantalla indicada.
 // __SERVIDOR__ y __VERSION__ los completa tools/web/construir.js.
 const SERVIDOR = "https://script.google.com/macros/s/AKfycbz7o_6xHt-R5AtmpyQqwwa8rpPt6Ra7hLf6owNOt-jf-jNOuLDMMVgP7r4jcOh0w1dq/exec";
-const CACHE = "ficha-202611242319";
+const CACHE = "ficha-202611251420";
 const ICONO = 'icon-192.png'; // ícono grande del aviso: el 24 amarillo a color
 const BADGE = 'badge-96.png'; // ícono chico de Android: monocromo, blanco sobre transparente
 
